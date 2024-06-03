@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "Web-Annotator",
+    "version": "1.0",
+    "description": "An extension which enables a user to Annotate a webpage and save them for further use.",
+    "icons": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    },
+    "background": {
+      "service_worker": "service-worker.js"
+    },
+    "action":{
+      "default_title": "Annotate the web"
+    },   
+    "permissions": ["sidePanel", "contextMenus"]
+  }
+  
