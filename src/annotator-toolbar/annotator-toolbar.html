@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="annotator-toolbar.css">
+</head>
+<body>
+    <div class="border" style="width: 16rem; height: 3rem">
+        <template id="highlightTemplate">
+            <span class="highlight" style="background-color: blue; display: inline;"></span>
+          </template>
+        <div class="container" id="mediumHighlighter">
+            <div class="box text-marker"></div>
+            <div class="box rectangle"></div>
+            <div class="box circle"></div>
+            <div class="box underline"></div>
+            <div class="box pointer"></div>
+            <div class="box undo"></div>
+            <div class="box redo"></div>
+        </div>
+        
+    </div>
+        <button>hide</button>
+    <script src="annotator-toolbar.js"></script>
+    <script src="../../scripts/medium-highlighter.js"></script>
+    <script src="../tools/annotator-tools.js"></script>
+</body>
+</html>
