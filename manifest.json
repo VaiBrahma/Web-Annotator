@@ -12,8 +12,17 @@
       "service_worker": "service-worker.js"
     },
     "action":{
-      "default_title": "Annotate the web"
+      "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
+      "default_popup": "popup.html"
     },   
-    "permissions": ["sidePanel", "contextMenus"]
+    "permissions": ["sidePanel", "tabs"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+B",
+        "mac": "Command+B"
+      }
+    }
+  }
   }
   

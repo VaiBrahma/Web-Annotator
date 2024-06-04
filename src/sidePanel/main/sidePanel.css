@@ -1,0 +1,33 @@
+body{
+    background: rgb(12, 9, 26);
+    color: rgba(249, 241, 241, 0.637);
+}
+
+input{
+    background-color: rgb(6, 6, 37);
+}
+
+ul{
+    padding: 0;
+}
+li{
+    background-color: rgba(250, 249, 249, 0.092);
+    margin: 0.5em;
+    padding: 0.5em;
+    list-style: none;
+    border-radius: 0.5em;
+    font-size: 1.2em;
+    transition: all 0.2s ease-in-out;
+    -webkit-user-modify: none;
+    user-select: none;
+    border: 1px solid rgba(255, 255, 255, 0.112);
+}
+li:hover{
+    background-color: rgba(250, 249, 249, 0.217);
+    transform: scale(1.05);
+}
+
+li:active{
+    transition: all 0.1s ease-in-out;
+    transform: scale(1);
+}
