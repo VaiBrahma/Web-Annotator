@@ -6,15 +6,27 @@ const template = `
         <span class="highlight" style="background-color: ${highlightColor}; display: inline;"></span>
     </template>
 
-    <div class="container" id="mediumHighlighter">
+    <template id="rectangle">
+        <span class="highlight" style="border: 2px solid red; display: inline;"></span>
+    </template>
+
+    <template id="circle">
+        <span class="highlight" style="border: 2px solid red; border-radius: 50%; display: inline;"></span>
+    </template>
+
+    <template id="underline">
+        <span class="highlight" style="text-decoration: underline; display: inline;"></span>
+    </template>
+
+    <button class="container" id="mediumHighlighter">
         <div class="box text-marker"></div>
         <div class="box rectangle"></div>
         <div class="box circle"></div>
         <div class="box underline"></div>
         <div class="box pointer"></div>
         <div class="box undo"></div>
-    <div class="box redo"></div>
-</div>
+        <div class="box redo"></div>
+    </button>
 `;
 // const template = `
 //   <template id="highlightTemplate">
@@ -57,8 +69,8 @@ const styled = ({ display = "none", left = 0, top = 0 }) => `
   }
 
   .box{
-    height: 1.5em;
-    width: 1.5em;
+    height: 2.5em;
+    width: 2.5em;
     background-color: #ffffff39;
     margin: 0.1em;
     border-radius: 0.25em;
@@ -71,11 +83,11 @@ const styled = ({ display = "none", left = 0, top = 0 }) => `
 .container::after{
     content:"";
     position: absolute;
-    bottom: -10px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%) rotate(180deg);
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     background-color: rgb(0, 0, 0);
     clip-path: polygon(50% 0, 0 100%, 100% 100%);
 }
@@ -123,6 +135,15 @@ class MediumHighlighter extends HTMLElement {
   get highlightTemplate() {
     return this.shadowRoot.getElementById("highlightTemplate");
   }
+  get rectangle() {
+    return this.shadowRoot.getElementById("rectangle");
+  }
+  get circle() {
+    return this.shadowRoot.getElementById("circle");
+  }
+  get underline() {
+    return this.shadowRoot.getElementById("underline");
+  }
 
   static get observedAttributes() {
     return ["markerPosition"];
@@ -134,9 +155,50 @@ class MediumHighlighter extends HTMLElement {
     style.textContent = styled({});
     this.shadowRoot.appendChild(style);
     this.shadowRoot.innerHTML += template;
-    this.shadowRoot
-      .querySelector(".text-marker")
-      .addEventListener("click", () => this.highlightSelection());
+    
+    this.shadowRoot.querySelector(".text-marker").addEventListener("click", ()=>{
+      var userSelection = window.getSelection();
+      for (let i = 0; i < userSelection.rangeCount; i++) {
+        const range = userSelection.getRangeAt(i);
+        const clone = this.highlightTemplate.cloneNode(true).content.firstElementChild;
+        clone.appendChild(range.extractContents());
+        range.insertNode(clone);
+      }
+      window.getSelection().empty();
+    })
+    
+    this.shadowRoot.querySelector(".rectangle").addEventListener("click", ()=>{
+      var userSelection = window.getSelection();
+      for (let i = 0; i < userSelection.rangeCount; i++) {
+        const range = userSelection.getRangeAt(i);
+        const clone = this.rectangle.cloneNode(true).content.firstElementChild;
+        clone.appendChild(range.extractContents());
+        range.insertNode(clone);
+      }
+      window.getSelection().empty();
+    })
+    
+    this.shadowRoot.querySelector(".circle").addEventListener("click", ()=>{
+      var userSelection = window.getSelection();
+      for (let i = 0; i < userSelection.rangeCount; i++) {
+        const range = userSelection.getRangeAt(i);
+        const clone = this.circle.cloneNode(true).content.firstElementChild;
+        clone.appendChild(range.extractContents());
+        range.insertNode(clone);
+      }
+      window.getSelection().empty();
+    })
+    
+    this.shadowRoot.querySelector(".underline").addEventListener("click", ()=>{
+      var userSelection = window.getSelection();
+      for (let i = 0; i < userSelection.rangeCount; i++) {
+        const range = userSelection.getRangeAt(i);
+        const clone = this.underline.cloneNode(true).content.firstElementChild;
+        clone.appendChild(range.extractContents());
+        range.insertNode(clone);
+      }
+      window.getSelection().empty();
+    })
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -159,6 +221,7 @@ class MediumHighlighter extends HTMLElement {
     clone.appendChild(range.extractContents());
     range.insertNode(clone);
   }
+
 }
 
 window.customElements.define("medium-highlighter", MediumHighlighter);
