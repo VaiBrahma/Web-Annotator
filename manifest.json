@@ -1,21 +1,26 @@
 {
-    "manifest_version": 3,
-    "name": "Web-Annotator",
-    "version": "1.0",
-    "description": "An extension which enables a user to Annotate a webpage and save them for further use.",
-    "icons": {
-      "16": "images/icon.png",
-      "48": "images/icon.png",
-      "128": "images/icon.png"
-    },
-    "background": {
-      "service_worker": "scripts/service-worker.js"
-    },
-    "action":{
-      "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
-      "default_popup": "popup.html"
-    },   
-    "permissions": ["sidePanel", "tabs"],
+  "manifest_version": 3,
+  "name": "Web-Annotator",
+  "version": "1.0.0",
+  "description": "An extension which enables a user to Annotate a webpage and save them for further use.",
+
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+
+  "action":{
+    "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
+    "default_popup": "popup.html"
+  },   
+
+  "permissions": ["sidePanel", "tabs", "storage"],
+
   "commands": {
     "_execute_action": {
       "suggested_key": {
@@ -24,16 +29,19 @@
       }
     }
   },
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
         "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
-        "scripts/toolbar.js",
-        "scripts/content.js"
+        "content-scripts/undo-redo.js",
+        "content-scripts/toolbar.js",
+        "content-scripts/content.js"
       ]
     }
   ],
+
   "web_accessible_resources": [
     {
       "resources": [
@@ -43,5 +51,6 @@
       "matches":["<all_urls>"]
     }
   ]
-  }
+
+}
   

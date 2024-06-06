@@ -64,8 +64,8 @@ class Toolbar extends HTMLElement {
     this.loadTemplate().then(()=>{
 
       this.setIconImage("text-marker", "marker");
-      this.setIconImage("rectangle", "rectangle");
-      this.setIconImage("circle", "oval2");
+      this.setIconImage("rectangle", "rectangle1");
+      this.setIconImage("circle", "oval");
       this.setIconImage("underline", "underline-tool");
       this.setIconImage("pointer", "pointer");
       this.setIconImage("note", "note");
