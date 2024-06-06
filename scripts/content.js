@@ -1,27 +1,27 @@
-const mediumHighlighter = document.createElement("medium-highlighter");
-document.body.appendChild(mediumHighlighter);
+const toolbar = document.createElement("annotator-toolbar");
+document.body.appendChild(toolbar);
 
-const setMarkerPosition = (markerPosition) =>
-  mediumHighlighter.setAttribute(
-    "markerPosition",
-    JSON.stringify(markerPosition)
+const setToolbarPosition = (toolbarPosition) =>
+  toolbar.setAttribute(
+    "toolbarPosition",
+    JSON.stringify(toolbarPosition)
   );
 
 const getSelectedText = () => window.getSelection().toString();
 
 document.addEventListener("click", () => {
   if (getSelectedText().length > 0) {
-    setMarkerPosition(getMarkerPosition());
+    setToolbarPosition(getToolbarPosition());
   }
 });
 
 document.addEventListener("selectionchange", () => {
   if (getSelectedText().length === 0) {
-    setMarkerPosition({ display: "none" });
+    setToolbarPosition({ display: "none" });
   }
 });
 
-function getMarkerPosition() {
+function getToolbarPosition() {
   const rangeBounds = window
     .getSelection()
     .getRangeAt(0)

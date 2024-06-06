@@ -29,9 +29,18 @@
       "matches": ["<all_urls>"],
       "js": [
         "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
-        "scripts/medium-highlighter.js",
+        "scripts/toolbar.js",
         "scripts/content.js"
       ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/annotator-toolbar/annotator-toolbar.html",
+        "images/*"
+      ],
+      "matches":["<all_urls>"]
     }
   ]
   }

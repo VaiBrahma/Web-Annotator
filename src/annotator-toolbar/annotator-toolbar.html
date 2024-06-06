@@ -1,31 +1,98 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="annotator-toolbar.css">
-</head>
-<body>
-    <div class="border" style="width: 16rem; height: 3rem">
-        <template id="highlightTemplate">
-            <span class="highlight" style="background-color: blue; display: inline;"></span>
-          </template>
-        <div class="container" id="mediumHighlighter">
-            <div class="box text-marker"></div>
-            <div class="box rectangle"></div>
-            <div class="box circle"></div>
-            <div class="box underline"></div>
-            <div class="box pointer"></div>
-            <div class="box undo"></div>
-            <div class="box redo"></div>
-        </div>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .container{
+            background-color: #050408;
+            display: inline-flex;
+            border-radius: 0.5em;
+            padding: 0.25em 0.2em;
+            position: relative;
+            transform-origin: 50% 110%;
+            transition: all 0.1s ease-in-out;
+            animation: tickle 0.5s ease-in-out;
+        }
+        .container::after{
+            content:"";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+            width: 10px;
+            height: 10px;
+            background-color: rgb(0, 0, 0);
+            clip-path: polygon(50% 0, 0 100%, 100% 100%);
+        }
+        .box{
+            height: 2em;
+            width: 2em;
+            margin: 0.1em;
+            border-radius: 0.25em;
+            transition: all 0.1s;
+            border: 1px solid white;
+        }
+        .box:hover{
+            border-color: rgba(0, 0, 0, 0.7);
+        }
+        .box:active{
+            transform: scale(0.95);
+        }
         
-    </div>
-        <button>hide</button>
-    <script src="annotator-toolbar.js"></script>
-    <script src="../../scripts/medium-highlighter.js"></script>
-    <script src="../tools/annotator-tools.js"></script>
-</body>
-</html>
+        @keyframes tickle {
+            0%{
+                transform: scale(0);
+            }
+            10%{
+                transform: scale(0.1) rotate(-6deg);
+            }
+            40%{
+                transform: rotate(+5deg);
+            }
+            60%{
+                transform: rotate(-3deg);
+            }
+            80%{
+                transform: rotate(+2deg);
+            }
+            100%{
+                transform: rotate(0deg);
+            }
+        }
+        </style>
+    
+    <template id="highlightTemplate">
+        <span class="highlight" style="background-color: red; display: inline;"></span>
+    </template>
+    
+    <template id="rectangle">
+        <span class="highlight" style=" border: 2px solid red; display: inline;"></span>
+    </template>
+    
+    <template id="circle">
+        <span class="highlight" style="border: 2px solid red; border-radius: 2em; display: inline;"></span>
+    </template>
+
+    <template id="underline">
+        <span class="highlight" style="text-decoration: underline; display: inline;"></span>
+    </template>
+
+    <template id="fontColor">
+        <span class="highlight" style="color: red; display: inline;"></span>
+    </template>
+
+    <template id="fontSize">
+        <span class="highlight" style="font-size: 1.2em; font-weight: bold; display: inline;"></span>
+    </template>
+
+    <button class="container" id="mediumHighlighter">
+        <div class="box text-marker"></div>
+        <div class="box rectangle"></div>
+        <div class="box underline"></div>
+        <div class="box fontColor"></div>
+        <div class="box fontSize"></div>
+        <div class="box circle"></div>
+        <div class="box pointer"></div>
+        <div class="box note"></div>
+        <div class="box undo"></div>
+        <div class="box redo"></div>
+    </button>
