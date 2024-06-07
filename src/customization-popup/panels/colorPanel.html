@@ -1,0 +1,47 @@
+<style>
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    .row{
+        display: inline-flex;
+        gap: 5px;
+        background-color: #000000c4;
+        padding: 5px;
+        border-radius: 0.25em;
+        justify-content: center;
+        align-items: center;
+    }
+    .color-box{
+        width: 1em;
+        height: 1em;
+        cursor:pointer;
+        border-radius: 0.25em;
+        position: relative;
+        transition: all 0.1s;
+        border: 1px solid transparent;
+    }
+    .color-box:hover{
+        border: 1px solid black;
+        transform: scale(1.4);
+    }
+    .colorPicker{
+        position: relative;
+    }
+</style>
+
+<div class="row">
+    <div class="color-box" style="background-color: #FF0000" data-color="#FF0000"></div>
+    <div class="color-box" style="background-color: #FFA500" data-color="#FFA500"></div>
+    <div class="color-box" style="background-color: #FFFF00" data-color="#FFFF00"></div>
+    <div class="color-box" style="background-color: #008000" data-color="#008000"></div>
+    <div class="color-box" style="background-color: #00FFFF" data-color="#00FFFF"></div>
+    <div class="color-box" style="background-color: #0000FF" data-color="#0000FF"></div>
+    <div class="color-box" style="background-color: #800080" data-color="#800080"></div>
+    <div class="color-box" style="background-color: #FFC0CB" data-color="#FFC0CB"></div>
+    <div class="color-box" style="background-color: #000000" data-color="#000000"></div>
+    <div class="color-box" style="background-color: #FFFFFF" data-color="#FFFFFF"></div>
+    <div class="color-box" style="background-color: #808080" data-color="#808080"></div>
+    <input type="color" class="color-box colorPicker" name="colorPicker" id="colorPicker">
+</div>

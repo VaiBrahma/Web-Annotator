@@ -30,14 +30,16 @@
       "js": [
         "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
         "scripts/toolbar.js",
-        "scripts/content.js"
+        "scripts/content.js",
+        "scripts/tools.js",
+        "scripts/customization.js"
       ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "src/annotator-toolbar/annotator-toolbar.html",
+        "src/*",
         "images/*"
       ],
       "matches":["<all_urls>"]

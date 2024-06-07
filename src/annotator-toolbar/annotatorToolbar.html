@@ -29,7 +29,9 @@
             margin: 0.1em;
             border-radius: 0.25em;
             transition: all 0.1s;
-            border: 1px solid white;
+            border: 1px solid transparent;
+            filter: invert(100%);
+
         }
         .box:hover{
             border-color: rgba(0, 0, 0, 0.7);
@@ -37,7 +39,12 @@
         .box:active{
             transform: scale(0.95);
         }
-        
+        .redo{
+            filter:hue-rotate(170deg) invert(100%);
+        }
+        .pointer{
+            filter:hue-rotate(280deg) invert(100%);
+        }
         @keyframes tickle {
             0%{
                 transform: scale(0);
@@ -61,23 +68,23 @@
         </style>
     
     <template id="highlightTemplate">
-        <span class="highlight" style="background-color: red; display: inline;"></span>
+        <span class="highlight" style="background-color: #02000072; display: inline;"></span>
     </template>
     
     <template id="rectangle">
-        <span class="highlight" style=" border: 2px solid red; display: inline;"></span>
+        <span class="highlight" style=" border: 2px solid; display: inline;"></span>
     </template>
     
     <template id="circle">
-        <span class="highlight" style="border: 2px solid red; border-radius: 2em; display: inline;"></span>
+        <span class="highlight" style="border: 2px solid #020000; border-radius: 2em; display: inline;"></span>
     </template>
 
     <template id="underline">
-        <span class="highlight" style="text-decoration: underline; display: inline;"></span>
+        <span class="highlight" style="text-decoration: underline;; display: inline;"></span>
     </template>
 
     <template id="fontColor">
-        <span class="highlight" style="color: red; display: inline;"></span>
+        <span class="highlight" style="color: #02000072; display: inline;"></span>
     </template>
 
     <template id="fontSize">
