@@ -13,10 +13,7 @@ const appendTools = (element) => {
       element.shadowRoot.querySelector(".rectangle").addEventListener("click", ()=>{
         var userSelection = window.getSelection();
         for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = element.rectangle.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
+           
         }
         window.getSelection().empty();
       })
@@ -64,6 +61,10 @@ const appendTools = (element) => {
         }
         window.getSelection().empty();
       })
+
+      element.shadowRoot.querySelector(".note").addEventListener('mousedown' , ()=> {element.shadowRoot.querySelector(".fontSize").style.borderColor = "orange"});
+      element.shadowRoot.querySelector(".note").addEventListener('mouseup' , ()=> {element.shadowRoot.querySelector(".fontSize").style.borderColor = "transparent"});
+
 }
 
 const setImages = (element) => {
