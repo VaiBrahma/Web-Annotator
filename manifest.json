@@ -9,7 +9,7 @@
       "128": "images/icon.png"
     },
     "background": {
-      "service_worker": "scripts/service-worker.js"
+      "service_worker": "background/service-worker.js"
     },
     "action":{
       "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
@@ -29,10 +29,10 @@
       "matches": ["<all_urls>"],
       "js": [
         "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
-        "scripts/toolbar.js",
-        "scripts/content.js",
-        "scripts/tools.js",
-        "scripts/customization.js"
+        "content-scripts/toolbar.js",
+        "content-scripts/content.js",
+        "content-scripts/tools.js",
+        "content-scripts/customization.js"
       ]
     }
   ],
