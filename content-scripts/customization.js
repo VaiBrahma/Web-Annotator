@@ -1,13 +1,14 @@
-const styledCustomize = ({ display = "none", left = 0, top = 0 }) => `
+const styledCustomize = ({ visibility = "hidden", left = 0, top = 0 }) => `
   #popupContainer {
+    position: absolute;
     align-items: center;
     border: none;
     cursor: pointer;
-    display: ${display};
+    display: inline-flex;
+    visibility : ${visibility};
     justify-content: center;
     left: ${left}px;
     padding: 5px 10px;
-    position: fixed;
     top: ${top}px;
     z-index: 9999;
   }
@@ -18,19 +19,19 @@ class Customize extends HTMLElement {
       this.render();
     }
   
-    get customizePosition() {
-      return JSON.parse(this.getAttribute("customizePosition") || "{}");
-    }
+    // get customizePosition() {
+    //   return JSON.parse(this.getAttribute("customizePosition") || "{}");
+    // }
   
-    static get observedAttributes() {
-      return ["customizePosition"];
-    }
+    // static get observedAttributes() {
+    //   return ["customizePosition"];
+    // }
   
-    attributeChangedCallback(name, oldValue, newValue) {
-      if (name === "customizePosition") {
-        this.styleElement.textContent =  (this.customizePosition);
-      }
-    }
+    // attributeChangedCallback(name, oldValue, newValue) {
+    //   if (name === "customizePosition") {
+    //     this.styleElement.textContent =  (this.customizePosition);
+    //   }
+    // }
   
     async loadTemplate() {
       const response = await fetch(chrome.runtime.getURL('src/customization-popup/popupContainer.html'));
@@ -47,9 +48,20 @@ class Customize extends HTMLElement {
 
       this.loadTemplate().then(()=>{
         for(let box of document.querySelector('annotator-toolbar').shadowRoot.querySelectorAll('.box')){
-            // box.addEventListener('mousedown', ()=>{this.shadowRoot.querySelector('#popupContainer').style.display = "inline-flex"});
-            // box.addEventListener('mouseup', ()=>{this.shadowRoot.querySelector('#popupContainer').style.display = "none"});
-            console.log(typeof(box.classList[1]));
+          const panel = this.shadowRoot.querySelector('#popupContainer')
+            box.addEventListener('mousedown', (e)=>{
+              const offsetX = this.shadowRoot.querySelector('#popupContainer').getBoundingClientRect().width / 2;
+              const offsetY = this.shadowRoot.querySelector('#popupContainer').getBoundingClientRect().height / 2;
+              // const offsetY = 15 * 10;
+              panel.style.top = `${e.clientY - offsetY}px`;
+              panel.style.left = `${e.clientX - offsetX}px`;
+              panel.style.visibility = "visible";
+            });
+            panel.addEventListener('click', ()=>{
+              const panel = this.shadowRoot.querySelector('#popupContainer');
+              panel.style.visibility = "hidden";
+            });
+            // console.log(typeof(box.classList[1]));
           }
       });
     }

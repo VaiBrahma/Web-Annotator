@@ -9,7 +9,7 @@ const setToolbarPosition = (toolbarPosition) =>
     JSON.stringify(toolbarPosition)
 );
 const setCustomizePosition = (customizePosition) =>
-  toolbar.setAttribute(
+  customizeElement.setAttribute(
     "customizePosition",
     JSON.stringify(customizePosition)
 );
