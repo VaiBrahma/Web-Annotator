@@ -37,19 +37,21 @@ const listItems = notes.map( (e, key)=>{
 notesList.innerHTML = listItems.join('');
 
 async function loadTemplate() {
-    const response = await fetch(chrome.runtime.getURL('src/customization-popup/popupContainer.html'));
+    const response = await fetch(chrome.runtime.getURL('src/customization/popupContainer.html'));
     const template = await response.text();
     this.shadowRoot.innerHTML += template;
   }
 
 async function loadPanels(fileName, element) {
-    const response = await fetch(chrome.runtime.getURL(`src/customization-popup/panels/${fileName}.html`));
+    const response = await fetch(chrome.runtime.getURL(`src/customization/panels/${fileName}.html`));
     const template = await response.text();
     element.innerHTML = template;
 }
 
 const color = document.querySelector('.color');
+const colorValue = document.querySelector('.colorValue');
 const opacity = document.querySelector('.opacity');
+const opacityValue = document.querySelector('.opacityValue');
 
 const panels = document.getElementById('panels');
 const colorPanel = document.createElement('div');
@@ -66,25 +68,46 @@ const properties = {
     borderstyle: "",
     textdecorationstyle: "",
 }
+
+const hexToRgb = (hex) => {
+    hex = hex.replace(/^#/, '');
+    let bigint = parseInt(hex, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+
+    return [r, g, b];
+}
+
+const getColorWithOpacity = (hexColor, opacity)=>{
+    const rgb = hexToRgb(hexColor);
+    const rgba = `rgba(${rgb[0]},${rgb[1]},${rgb[2]}, ${opacity})`;
+    return rgba;
+}
+
 loadPanels("colorPanel", colorPanel).then(()=>{
 
     for(let i = 0; i<=10; i++){
         colorPanel.children[1].children[i].addEventListener('click', (e)=>{
-            color.innerHTML = e.target.getAttribute('data-color');
-            properties.color = e.target.getAttribute('data-color');
-            properties.bordercolor = e.target.getAttribute('data-color');
-            properties.textdecorationcolor = e.target.getAttribute('data-color');
-            properties.backgroundcolor = e.target.getAttribute('data-color');
+            color.style.backgroundColor = e.target.getAttribute('data-color');
+            colorValue.innerHTML = e.target.getAttribute('data-color');
+
+            const colorWithOpacity = getColorWithOpacity(e.target.getAttribute('data-color'), opacityValue.innerHTML);
+            properties.color = colorWithOpacity;
+            properties.bordercolor = colorWithOpacity;
+            properties.textdecorationcolor = colorWithOpacity;
+            properties.backgroundcolor = colorWithOpacity;
             chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
         })
     }
     const input = colorPanel.children[1].children[11];
     input.addEventListener("input", ()=>{
-        color.textContent = input.value;
+        color.style.backgroundColor = input.value;
+        colorValue.innerHTML = input.value;
         properties.color = input.value;
-        properties.bordercolor = e.target.getAttribute('data-color');
-        properties.textdecorationcolor = e.target.getAttribute('data-color');
-        properties.backgroundcolor = e.target.getAttribute('data-color');
+        properties.bordercolor = input.value;
+        properties.textdecorationcolor = input.value;
+        properties.backgroundcolor = input.value;
         chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
     })
 })
@@ -92,7 +115,14 @@ loadPanels("colorPanel", colorPanel).then(()=>{
 loadPanels("opacityPanel", opacityPanel).then(()=>{
     const input = opacityPanel.children[1].children[1];
     input.addEventListener("input", ()=>{
-        opacity.textContent = `${input.value}%`;
+        opacity.style.opacity = `${input.value}%`;
+        opacityValue.innerHTML = `${input.value}%`;
+
+        const colorWithOpacity = getColorWithOpacity(colorValue.innerHTML, input.value/100);
+        properties.color = colorWithOpacity;
+        properties.bordercolor = colorWithOpacity;
+        properties.textdecorationcolor = colorWithOpacity;
+        properties.backgroundcolor = colorWithOpacity;
         properties.opacity = `${input.value}%`;
         chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
     })

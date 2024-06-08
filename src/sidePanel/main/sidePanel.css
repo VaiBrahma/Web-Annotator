@@ -49,3 +49,16 @@ li:active{
 h1{
     color: rgba(209, 195, 255, 0.708);
 }
+.color-box{
+    width: 1.5em;
+    height: 1.5em;
+    cursor:pointer;
+    border-radius: 0.25em;
+    position: relative;
+    transition: all 0.1s;
+    border: 1px solid #ffffff72;
+}
+.color-box:hover{
+    border: 1px solid #00bfffeb;
+    transform: scale(1.2);
+}

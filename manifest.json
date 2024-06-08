@@ -32,7 +32,8 @@
         "content-scripts/toolbar.js",
         "content-scripts/content.js",
         "content-scripts/tools.js",
-        "content-scripts/customization.js"
+        "content-scripts/customization.js",
+        "content-scripts/messageListener.js"
       ]
     }
   ],

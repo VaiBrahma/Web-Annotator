@@ -12,13 +12,6 @@ const old_properties = {
 
 let updated_properties = old_properties;
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
-  if(message.type == "UPDATE_PROPERTIES"){
-      // console.log(message.properties);
-      updated_properties = message.properties;
-  }
-});
-
 const appendTools = (element) => { 
       append(element, 'text-marker', element.highlightTemplate);
       append(element, 'rectangle', element.rectangle);
@@ -54,7 +47,7 @@ function append(element, query, template){
       const clone = template.cloneNode(true).content.firstElementChild;
 
       clone.style.backgroundColor = template.getAttribute('backgroundColor');
-      clone.style.opacity = template.getAttribute('opacity');
+      clone.style.backgroundOpacity = template.getAttribute('opacity');
       clone.style.borderColor = template.getAttribute('borderColor');
       clone.style.borderWidth = template.getAttribute('borderWidth');
       clone.style.borderStyle = template.getAttribute('borderStyle');
