@@ -57,14 +57,14 @@ const opacityPanel = document.createElement('div');
         
 const properties = {
     color: "",
-    backgroundColor: "",
-    borderColor: "",
-    textDecorationColor: "",
+    backgroundcolor: "",
+    bordercolor: "",
+    textdecorationcolor: "",
     opacity: "",
-    borderWidth: "",
-    textDecorationThickness: "",
-    borderStyle: "",
-    textDecorationStyle: "",
+    borderwidth: "",
+    textdecorationthickness: "",
+    borderstyle: "",
+    textdecorationstyle: "",
 }
 loadPanels("colorPanel", colorPanel).then(()=>{
 
@@ -72,12 +72,20 @@ loadPanels("colorPanel", colorPanel).then(()=>{
         colorPanel.children[1].children[i].addEventListener('click', (e)=>{
             color.innerHTML = e.target.getAttribute('data-color');
             properties.color = e.target.getAttribute('data-color');
+            properties.bordercolor = e.target.getAttribute('data-color');
+            properties.textdecorationcolor = e.target.getAttribute('data-color');
+            properties.backgroundcolor = e.target.getAttribute('data-color');
+            chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
         })
     }
     const input = colorPanel.children[1].children[11];
     input.addEventListener("input", ()=>{
         color.textContent = input.value;
         properties.color = input.value;
+        properties.bordercolor = e.target.getAttribute('data-color');
+        properties.textdecorationcolor = e.target.getAttribute('data-color');
+        properties.backgroundcolor = e.target.getAttribute('data-color');
+        chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
     })
 })
 
@@ -86,6 +94,7 @@ loadPanels("opacityPanel", opacityPanel).then(()=>{
     input.addEventListener("input", ()=>{
         opacity.textContent = `${input.value}%`;
         properties.opacity = `${input.value}%`;
+        chrome.runtime.sendMessage({type: "UPDATE_PROPERTIES", properties});
     })
 });
 panels.appendChild(colorPanel);

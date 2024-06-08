@@ -1,3 +1,24 @@
+const old_properties = {
+  color: "",
+  backgroundcolor: "",
+  bordercolor: "",
+  textdecorationcolor: "",
+  opacity: "",
+  borderwidth: "",
+  textdecorationthickness: "",
+  borderstyle: "",
+  textdecorationstyle: "",
+}
+
+let updated_properties = old_properties;
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
+  if(message.type == "UPDATE_PROPERTIES"){
+      // console.log(message.properties);
+      updated_properties = message.properties;
+  }
+});
+
 const appendTools = (element) => { 
       append(element, 'text-marker', element.highlightTemplate);
       append(element, 'rectangle', element.rectangle);
@@ -15,6 +36,18 @@ const setImages = (element) => {
 
 function append(element, query, template){
   element.shadowRoot.querySelector(`.${query}`).addEventListener("click", ()=>{
+    //to customize 
+    for(let attr of template.attributes){
+      const attrName = attr.name;
+
+      if(updated_properties.hasOwnProperty(attrName)){
+        template.setAttribute(attrName, updated_properties[attrName] || template.getAttribute(attrName));
+        // console.log(attrName + " -> " + template.getAttribute(attrName));
+      }
+    }
+
+    updated_properties = old_properties;
+    //to append a highlight
     var userSelection = window.getSelection();
     for (let i = 0; i < userSelection.rangeCount; i++) {
       const range = userSelection.getRangeAt(i);

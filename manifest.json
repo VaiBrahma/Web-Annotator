@@ -15,7 +15,7 @@
       "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
       "default_popup": "popup.html"
     },   
-    "permissions": ["sidePanel", "tabs"],
+    "permissions": ["sidePanel", "tabs", "activeTab", "scripting"],
   "commands": {
     "_execute_action": {
       "suggested_key": {
