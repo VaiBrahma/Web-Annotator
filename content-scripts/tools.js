@@ -19,6 +19,17 @@ function append(element, query, template){
     for (let i = 0; i < userSelection.rangeCount; i++) {
       const range = userSelection.getRangeAt(i);
       const clone = template.cloneNode(true).content.firstElementChild;
+
+      clone.style.backgroundColor = template.getAttribute('backgroundColor');
+      clone.style.opacity = template.getAttribute('opacity');
+      clone.style.borderColor = template.getAttribute('borderColor');
+      clone.style.borderWidth = template.getAttribute('borderWidth');
+      clone.style.borderStyle = template.getAttribute('borderStyle');
+      clone.style.textDecorationColor = template.getAttribute('textDecorationColor');
+      clone.style.textDecorationStyle = template.getAttribute('textDecorationStyle');
+      clone.style.textDecorationThickness = template.getAttribute('textDecorationThickness');
+      clone.style.color = template.getAttribute('color');
+
       clone.appendChild(range.extractContents());
       range.insertNode(clone);
     }

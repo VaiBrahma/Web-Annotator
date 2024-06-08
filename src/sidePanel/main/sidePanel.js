@@ -48,6 +48,9 @@ async function loadPanels(fileName, element) {
     element.innerHTML = template;
 }
 
+const color = document.querySelector('.color');
+const opacity = document.querySelector('.opacity');
+
 const panels = document.getElementById('panels');
 const colorPanel = document.createElement('div');
 const opacityPanel = document.createElement('div');
@@ -56,3 +59,11 @@ loadPanels("colorPanel", colorPanel);
 loadPanels("opacityPanel", opacityPanel);
 panels.appendChild(colorPanel);
 panels.appendChild(opacityPanel);
+
+const hehe = document.querySelector('#panels').children[1];
+
+console.log(hehe);
+// hehe.querySelector('input').addEventListener("input", ()=>{
+//     opacity.textContent = `${input.value}%`;
+
+// })
