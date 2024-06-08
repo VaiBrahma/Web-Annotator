@@ -1,23 +1,33 @@
 const toolbar = document.createElement("annotator-toolbar");
+const customizeElement = document.createElement("customization-Panel");
 document.body.appendChild(toolbar);
+document.body.appendChild(customizeElement);
 
 const setToolbarPosition = (toolbarPosition) =>
   toolbar.setAttribute(
     "toolbarPosition",
     JSON.stringify(toolbarPosition)
-  );
+);
+const setCustomizePosition = (customizePosition) =>
+  toolbar.setAttribute(
+    "customizePosition",
+    JSON.stringify(customizePosition)
+);
+
 
 const getSelectedText = () => window.getSelection().toString();
 
 document.addEventListener("click", () => {
   if (getSelectedText().length > 0) {
     setToolbarPosition(getToolbarPosition());
+    setCustomizePosition(getToolbarPosition());
   }
 });
 
 document.addEventListener("selectionchange", () => {
   if (getSelectedText().length === 0) {
     setToolbarPosition({ display: "none" });
+    setCustomizePosition({ display: "none" });
   }
 });
 

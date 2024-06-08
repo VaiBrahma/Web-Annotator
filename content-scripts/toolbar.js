@@ -43,6 +43,9 @@ class Toolbar extends HTMLElement {
   get fontSize() {
     return this.shadowRoot.getElementById("fontSize");
   }
+  get toolbar() {
+    return this;
+  }
 
   static get observedAttributes() {
     return ["toolbarPosition"];
@@ -80,5 +83,6 @@ class Toolbar extends HTMLElement {
     
   }
 }
+
 
 window.customElements.define("annotator-toolbar", Toolbar);
