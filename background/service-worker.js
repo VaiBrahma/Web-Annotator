@@ -21,3 +21,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
         });
     }
 });
+
+chrome.commands.onCommand.addListener((command)=>{
+  console.log(command);
+})
