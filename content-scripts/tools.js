@@ -28,37 +28,39 @@ const setImages = (element) => {
 }
 
 function append(element, query, template){
-  element.shadowRoot.querySelector(`.${query}`).addEventListener("click", ()=>{
-    //to customize 
-    for(let attr of template.attributes){
-      const attrName = attr.name;
+  element.shadowRoot.querySelector(`.${query}`).addEventListener("click", ()=>{handleClick(template)});
+}
 
-      if(updated_properties.hasOwnProperty(attrName)){
-        template.setAttribute(attrName, updated_properties[attrName] || template.getAttribute(attrName));
-        // console.log(attrName + " -> " + template.getAttribute(attrName));
-      }
+const handleClick = (template)=>{
+  //to customize 
+  for(let attr of template.attributes){
+    const attrName = attr.name;
+
+    if(updated_properties.hasOwnProperty(attrName)){
+      template.setAttribute(attrName, updated_properties[attrName] || template.getAttribute(attrName));
+      // console.log(attrName + " -> " + template.getAttribute(attrName));
     }
+  }
 
-    updated_properties = old_properties;
-    //to append a highlight
-    var userSelection = window.getSelection();
-    for (let i = 0; i < userSelection.rangeCount; i++) {
-      const range = userSelection.getRangeAt(i);
-      const clone = template.cloneNode(true).content.firstElementChild;
+  updated_properties = old_properties;
+  //to append a highlight
+  var userSelection = window.getSelection();
+  for (let i = 0; i < userSelection.rangeCount; i++) {
+    const range = userSelection.getRangeAt(i);
+    const clone = template.cloneNode(true).content.firstElementChild;
 
-      clone.style.backgroundColor = template.getAttribute('backgroundColor');
-      clone.style.backgroundOpacity = template.getAttribute('opacity');
-      clone.style.borderColor = template.getAttribute('borderColor');
-      clone.style.borderWidth = template.getAttribute('borderWidth');
-      clone.style.borderStyle = template.getAttribute('borderStyle');
-      clone.style.textDecorationColor = template.getAttribute('textDecorationColor');
-      clone.style.textDecorationStyle = template.getAttribute('textDecorationStyle');
-      clone.style.textDecorationThickness = template.getAttribute('textDecorationThickness');
-      clone.style.color = template.getAttribute('color');
+    clone.style.backgroundColor = template.getAttribute('backgroundColor');
+    clone.style.backgroundOpacity = template.getAttribute('opacity');
+    clone.style.borderColor = template.getAttribute('borderColor');
+    clone.style.borderWidth = template.getAttribute('borderWidth');
+    clone.style.borderStyle = template.getAttribute('borderStyle');
+    clone.style.textDecorationColor = template.getAttribute('textDecorationColor');
+    clone.style.textDecorationStyle = template.getAttribute('textDecorationStyle');
+    clone.style.textDecorationThickness = template.getAttribute('textDecorationThickness');
+    clone.style.color = template.getAttribute('color');
 
-      clone.appendChild(range.extractContents());
-      range.insertNode(clone);
-    }
-    window.getSelection().empty();
-  })
+    clone.appendChild(range.extractContents());
+    range.insertNode(clone);
+  }
+  window.getSelection().empty();
 }
