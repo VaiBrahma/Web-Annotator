@@ -55,15 +55,46 @@ const panels = document.getElementById('panels');
 const colorPanel = document.createElement('div');
 const opacityPanel = document.createElement('div');
         
-loadPanels("colorPanel", colorPanel);
-loadPanels("opacityPanel", opacityPanel);
+const properties = {
+    color: "",
+    backgroundColor: "",
+    borderColor: "",
+    textDecorationColor: "",
+    opacity: "",
+    borderWidth: "",
+    textDecorationThickness: "",
+    borderStyle: "",
+    textDecorationStyle: "",
+}
+loadPanels("colorPanel", colorPanel).then(()=>{
+
+    for(let i = 0; i<=10; i++){
+        colorPanel.children[1].children[i].addEventListener('click', (e)=>{
+            color.innerHTML = e.target.getAttribute('data-color');
+            properties.color = e.target.getAttribute('data-color');
+        })
+    }
+    const input = colorPanel.children[1].children[11];
+    input.addEventListener("input", ()=>{
+        color.textContent = input.value;
+        properties.color = input.value;
+    })
+})
+
+loadPanels("opacityPanel", opacityPanel).then(()=>{
+    const input = opacityPanel.children[1].children[1];
+    input.addEventListener("input", ()=>{
+        opacity.textContent = `${input.value}%`;
+        properties.opacity = `${input.value}%`;
+    })
+});
 panels.appendChild(colorPanel);
 panels.appendChild(opacityPanel);
 
-const hehe = document.querySelector('#panels').children[1];
+// for(let box of document.querySelector('annotator-toolbar').shadowRoot.querySelectorAll('.box')){
+//     box.addEventListener('click',()=>{
+//         const attributes
+//     })
+// }
 
-console.log(hehe);
-// hehe.querySelector('input').addEventListener("input", ()=>{
-//     opacity.textContent = `${input.value}%`;
-
-// })
+// console.log(document.querySelector('annotator-toolbar').shadowRoot.querySelectorAll('.box'));

@@ -1,8 +1,11 @@
 body{
     background: rgb(12, 9, 26);
     color: rgba(249, 241, 241, 0.637);
+    /* padding: 2em; */
 }
-
+.margin{
+    margin: 2em;
+}
 input{
     background-color: rgb(6, 6, 37);
 }
@@ -41,4 +44,8 @@ li:active{
     border: 0.5px solid rgba(255, 255, 255, 0.379);
     margin: 2px;
     border-radius: 0.2em;
+}
+
+h1{
+    color: rgba(209, 195, 255, 0.708);
 }

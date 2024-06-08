@@ -7,19 +7,26 @@
     <link rel="stylesheet" href="sidePanel.css">
 </head>
 <body>
-
-    <h1>Customization Panel</h1>
-    <div id="panels">
+    <div class="margin">
+        <h1>Customization Panel</h1>
+        <div id="panels">
+        </div>
+            <div>Color: <span class="color">Not Selected</span></div>
+            <div>Opacity: <span class="opacity">Not Selected</span></div>
     </div>
-    <div class="color"></div>
-    <div class="opacity"></div>
-    <h1>Tab Specific side Panel</h1>
-    <div id="tabid">Current Tab Id: </div>
-    <div id="url">Current Tab url: </div>
 
-    <h1 style="margin-bottom: 1em;">Notes List</h1>
-    <ul id = "notesList">
-    </ul>
+    <div class="margin">
+        <h1>Current tab Detail</h1>
+        <br>
+        <div id="tabid">Current Tab Id: </div>
+        <div id="url">Current Tab url: </div>
+    </div>
+
+    <div class="margin">
+        <h1 style="margin-bottom: 1em;">Notes List</h1>
+        <ul id = "notesList">
+        </ul>
+    </div>
     <script src="sidePanel.js"></script>
 </body>
 </html>
