@@ -17,13 +17,37 @@
     },   
     "permissions": ["sidePanel", "tabs", "activeTab", "scripting"],
   "commands": {
-    "_execute_action": {
+    "textMarker": {
       "suggested_key": {
-        "default": "Ctrl+B",
-        "mac": "Command+B"
-      }
+        "default": "Ctrl+Shift+6",
+        "mac": "Command+Shift+6"
+      },
+    "description": "highlight"
+    },
+    "rectangle": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+7",
+        "mac": "Command+Shift+7"
+      },
+    "description": "make a rectangle"
+    },
+    "circle": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+8",
+        "mac": "Command+Shift+8"
+      },
+    "description": "make an oval"
+    },
+    "underline": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9",
+        "mac": "Command+Shift+9"
+      },
+    "description": "make an underline"
     }
+
   },
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
