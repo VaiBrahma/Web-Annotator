@@ -1,45 +1,41 @@
 const toolbar = document.createElement("annotator-toolbar");
-const customizeElement = document.createElement("customization-Panel");
 document.body.appendChild(toolbar);
-document.body.appendChild(customizeElement);
 
 const setToolbarPosition = (toolbarPosition) =>
   toolbar.setAttribute(
     "toolbarPosition",
     JSON.stringify(toolbarPosition)
 );
-const setCustomizePosition = (customizePosition) =>
-  customizeElement.setAttribute(
-    "customizePosition",
-    JSON.stringify(customizePosition)
-);
-
 
 const getSelectedText = () => window.getSelection().toString();
 
 document.addEventListener("click", () => {
   if (getSelectedText().length > 0) {
     setToolbarPosition(getToolbarPosition());
-    setCustomizePosition(getToolbarPosition());
   }
 });
 
 document.addEventListener("selectionchange", () => {
   if (getSelectedText().length === 0) {
-    setToolbarPosition({ display: "none" });
-    setCustomizePosition({ display: "none" });
+    setToolbarPosition({ 
+      visibility: "hidden",
+      animation: "none"
+    });
   }
 });
 
 function getToolbarPosition() {
+  const p = toolbar.shadowRoot.querySelector('.container').getBoundingClientRect();
   const rangeBounds = window
     .getSelection()
     .getRangeAt(0)
     .getBoundingClientRect();
+
   return {
-    // Substract width of marker button -> 40px / 2 = 20
-    left: rangeBounds.left + rangeBounds.width / 2 - 10* 1.95 * 7 ,
-    top: rangeBounds.top - 60,
+    left: Math.max(Number.parseInt(rangeBounds.left + rangeBounds.width / 2 - p.width/2), 0),
+    top: Math.max(Number.parseInt(rangeBounds.top - p.height),0),
     display: "inline-flex",
+    visibility: "visible",
+    animation: "tickle"
   };
-}
+};

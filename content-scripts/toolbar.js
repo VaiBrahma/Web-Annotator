@@ -1,15 +1,17 @@
-const styled = ({ display = "none", left = 0, top = 0 }) => `
+const styled = ({ display = "inline-flex",visibility = "hidden", left, top, animation = "none" }) => `
   #mediumHighlighter {
     align-items: center;
     border: none;
     cursor: pointer;
-    display: ${display};
     justify-content: center;
     left: ${left}px;
+    display: ${display};
+    visibility: ${visibility};
     padding: 5px 10px;
     position: fixed;
     top: ${top}px;
     z-index: 9999;
+    animation: ${animation} 0.5s ease-in-out ;
   }
 `;
 

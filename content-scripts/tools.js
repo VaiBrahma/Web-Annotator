@@ -13,12 +13,12 @@ const setImages = (element) => {
   }
 }
 
-function append(element, query, classname){
+function append(element, query, template){
   element.shadowRoot.querySelector(`.${query}`).addEventListener("click", ()=>{
     var userSelection = window.getSelection();
     for (let i = 0; i < userSelection.rangeCount; i++) {
       const range = userSelection.getRangeAt(i);
-      const clone = classname.cloneNode(true).content.firstElementChild;
+      const clone = template.cloneNode(true).content.firstElementChild;
       clone.appendChild(range.extractContents());
       range.insertNode(clone);
     }

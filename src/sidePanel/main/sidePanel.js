@@ -35,3 +35,24 @@ const listItems = notes.map( (e, key)=>{
 })
 
 notesList.innerHTML = listItems.join('');
+
+async function loadTemplate() {
+    const response = await fetch(chrome.runtime.getURL('src/customization-popup/popupContainer.html'));
+    const template = await response.text();
+    this.shadowRoot.innerHTML += template;
+  }
+
+async function loadPanels(fileName, element) {
+    const response = await fetch(chrome.runtime.getURL(`src/customization-popup/panels/${fileName}.html`));
+    const template = await response.text();
+    element.innerHTML = template;
+}
+
+const panels = document.getElementById('panels');
+const colorPanel = document.createElement('div');
+const opacityPanel = document.createElement('div');
+        
+loadPanels("colorPanel", colorPanel);
+loadPanels("opacityPanel", opacityPanel);
+panels.appendChild(colorPanel);
+panels.appendChild(opacityPanel);
