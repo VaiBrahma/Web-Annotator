@@ -47,6 +47,9 @@ class Toolbar extends HTMLElement {
   get fontSize() {
     return this.shadowRoot.getElementById("fontSize");
   }
+  get note() {
+    return this.shadowRoot.getElementById("note");
+  }
   get toolbar() {
     return this;
   }
@@ -61,6 +64,11 @@ class Toolbar extends HTMLElement {
     this.shadowRoot.innerHTML += template;
   }
 
+  async getTemplate(clone){
+    const response = await fetch(chrome.runtime.getURL("src/notes/notes.html"));
+    const template = await response.text();
+    clone.innerText = template;
+  }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "toolbarPosition") {
@@ -84,11 +92,26 @@ class Toolbar extends HTMLElement {
     this.loadTemplate().then(()=>{
       setImages(this);
       appendTools(this);
-    });
-    
-  }
-}
 
+      const button = this.shadowRoot.querySelector('.note');
+
+      button.addEventListener('click', ()=>{
+        console.log('clicked')
+        var userSelection = window.getSelection();
+
+        for (let i = 0; i < userSelection.rangeCount; i++) {
+          const range = userSelection.getRangeAt(i);
+          const clone = this.note.cloneNode(true).content.firstElementChild;
+          
+          this.getTemplate(clone).then(()=>{
+            clone.appendChild(range.extractContents());
+            range.insertNode(clone);
+          });
+        }
+      });
+    })
+  };
+}
 
 
 window.customElements.define("annotator-toolbar", Toolbar);

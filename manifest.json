@@ -56,7 +56,8 @@
         "content-scripts/content.js",
         "content-scripts/tools.js",
         "content-scripts/customization.js",
-        "content-scripts/messageListener.js"
+        "content-scripts/messageListener.js",
+        "content-scripts/notes.js"
       ]
     }
   ],

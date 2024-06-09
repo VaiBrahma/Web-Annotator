@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .note-container{
+            background-color: #050408;
+            display: inline-flex;
+            border-radius: 0.5em;
+            padding: 0.25em 0.2em;
+            position: relative;
+            transform-origin: 50% 110%;
+            transition: all 0.1s ease-in-out;
+            filter: drop-shadow(0px 0px 4px white);
+            padding: 0.5em;
+        }
+        .note-container::after{
+            content:"";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: #050408;
+            clip-path: polygon(50% 0, 0 100%, 100% 100%);
+        }
+        .note{
+            background-color: #050408;
+            color: #cbc2fff5;
+            border: 1px solid #a190ffbb;
+            border-radius: 0.2em;
+            padding: 0.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container">
+        <input type="text" name="note" class="note" placeholder="add a note">
+    </div>
+</body>
+</html>
