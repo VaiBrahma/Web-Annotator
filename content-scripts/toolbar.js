@@ -1,15 +1,17 @@
-const styled = ({ display = "none", left = 0, top = 0 }) => `
+const styled = ({ display = "inline-flex",visibility = "hidden", left, top, animation = "none" }) => `
   #mediumHighlighter {
     align-items: center;
     border: none;
     cursor: pointer;
-    display: ${display};
     justify-content: center;
     left: ${left}px;
+    display: ${display};
+    visibility: ${visibility};
     padding: 5px 10px;
     position: fixed;
     top: ${top}px;
     z-index: 9999;
+    animation: ${animation} 0.5s ease-in-out ;
   }
 `;
 
@@ -45,104 +47,20 @@ class Toolbar extends HTMLElement {
   get fontSize() {
     return this.shadowRoot.getElementById("fontSize");
   }
+  get toolbar() {
+    return this;
+  }
 
   static get observedAttributes() {
     return ["toolbarPosition"];
   }
 
   async loadTemplate() {
-    const response = await fetch(chrome.runtime.getURL('src/annotator-toolbar/annotator-toolbar.html'));
+    const response = await fetch(chrome.runtime.getURL('src/annotator-toolbar/annotatorToolbar.html'));
     const template = await response.text();
     this.shadowRoot.innerHTML += template;
   }
-  
-  render() {
-    this.attachShadow({ mode: "open" });
-    const style = document.createElement("style");
-    style.textContent = styled({});
-    this.shadowRoot.appendChild(style);
-    this.loadTemplate().then(()=>{
 
-      this.setIconImage("text-marker", "marker");
-      this.setIconImage("rectangle", "rectangle1");
-      this.setIconImage("circle", "oval");
-      this.setIconImage("underline", "underline-tool");
-      this.setIconImage("pointer", "pointer");
-      this.setIconImage("note", "note");
-      this.setIconImage("undo", "undo");
-      this.setIconImage("redo", "redo");
-      this.setIconImage("fontSize", "fontSize");
-      this.setIconImage("fontColor", "fontColor");
-
-      this.shadowRoot.querySelector(".text-marker").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.highlightTemplate.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-      
-      this.shadowRoot.querySelector(".rectangle").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.rectangle.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-      
-      this.shadowRoot.querySelector(".circle").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.circle.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-      
-      this.shadowRoot.querySelector(".underline").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.underline.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-      
-      this.shadowRoot.querySelector(".fontColor").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.fontColor.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-      
-      this.shadowRoot.querySelector(".fontSize").addEventListener("click", ()=>{
-        var userSelection = window.getSelection();
-        for (let i = 0; i < userSelection.rangeCount; i++) {
-          const range = userSelection.getRangeAt(i);
-          const clone = this.fontSize.cloneNode(true).content.firstElementChild;
-          clone.appendChild(range.extractContents());
-          range.insertNode(clone);
-        }
-        window.getSelection().empty();
-      })
-
-    });
-    
-  }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === "toolbarPosition") {
@@ -150,13 +68,27 @@ class Toolbar extends HTMLElement {
     }
   }
 
-  setIconImage(className, image) {
+
+  setIconImage(className) {
     const e = this.shadowRoot.querySelector(`.${className}`);
-    e.style.background = `url(${chrome.runtime.getURL(`images/${image}.png`)}) no-repeat center center/cover`;
-    e.style.filter = 'invert(100%)';
-    e.style.backgroundSize = "80%";
+    e.style.background = `url(${chrome.runtime.getURL(`images/${className}.png`)}) no-repeat center center/cover`;
+    if(className!="circle") e.style.backgroundSize = "80%";
   }
 
+  render() {
+    this.attachShadow({ mode: "open" });
+    const style = document.createElement("style");
+    style.textContent = styled({});
+    this.shadowRoot.appendChild(style);
+
+    this.loadTemplate().then(()=>{
+      setImages(this);
+      appendTools(this);
+    });
+    
+  }
 }
+
+
 
 window.customElements.define("annotator-toolbar", Toolbar);

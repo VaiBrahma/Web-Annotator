@@ -7,13 +7,26 @@
     <link rel="stylesheet" href="sidePanel.css">
 </head>
 <body>
-    <h1>Tab Specific side Panel</h1>
-    <div id="tabid">Current Tab Id: </div>
-    <div id="url">Current Tab url: </div>
+    <div class="margin">
+        <h1>Customization Panel</h1>
+        <div id="panels">
+        </div>
+            <div style="display: flex; align-items: center; gap: 5px;">Color:<div class="color color-box" style="background-color: transparent; margin-left: 19px;"></div> <div class="colorValue">Not Selected</div></div>
+            <div style="display: flex; align-items: center; gap: 5px;">Opacity:<div class="opacity color-box" style="background-color: white; margin-left:  6px; border-radius: 50%;"></div> <div class="opacityValue">100%</div></div>
+    </div>
 
-    <h1 style="margin-bottom: 1em;">Notes List</h1>
-    <ul id = "notesList">
-    </ul>
+    <div class="margin">
+        <h1>Current tab Detail</h1>
+        <br>
+        <div id="tabid">Current Tab Id: </div>
+        <div id="url">Current Tab url: </div>
+    </div>
+
+    <div class="margin">
+        <h1 style="margin-bottom: 1em;">Notes List</h1>
+        <ul id = "notesList">
+        </ul>
+    </div>
     <script src="sidePanel.js"></script>
 </body>
 </html>

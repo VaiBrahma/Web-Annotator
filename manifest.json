@@ -1,33 +1,51 @@
 {
-  "manifest_version": 3,
-  "name": "Web-Annotator",
-  "version": "1.0.0",
-  "description": "An extension which enables a user to Annotate a webpage and save them for further use.",
-
-  "icons": {
-    "16": "images/icon.png",
-    "48": "images/icon.png",
-    "128": "images/icon.png"
-  },
-
-  "background": {
-    "service_worker": "background/service-worker.js"
-  },
-
-  "action":{
-    "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
-    "default_popup": "popup.html"
-  },   
-
-  "permissions": ["sidePanel", "tabs", "storage"],
-
+    "manifest_version": 3,
+    "name": "Web-Annotator",
+    "version": "1.0",
+    "description": "An extension which enables a user to Annotate a webpage and save them for further use.",
+    "icons": {
+      "16": "images/icon.png",
+      "48": "images/icon.png",
+      "128": "images/icon.png"
+    },
+    "background": {
+      "service_worker": "background/service-worker.js"
+    },
+    "action":{
+      "default_title": "Annotate the web:\n Click ctrl + B or cmd + B to open sidePanel",
+      "default_popup": "popup.html"
+    },   
+    "permissions": ["sidePanel", "tabs", "activeTab", "scripting"],
   "commands": {
-    "_execute_action": {
+    "textMarker": {
       "suggested_key": {
-        "default": "Ctrl+B",
-        "mac": "Command+B"
-      }
+        "default": "Ctrl+Shift+6",
+        "mac": "Command+Shift+6"
+      },
+    "description": "highlight"
+    },
+    "rectangle": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+7",
+        "mac": "Command+Shift+7"
+      },
+    "description": "make a rectangle"
+    },
+    "circle": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+8",
+        "mac": "Command+Shift+8"
+      },
+    "description": "make an oval"
+    },
+    "underline": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+9",
+        "mac": "Command+Shift+9"
+      },
+    "description": "make an underline"
     }
+
   },
 
   "content_scripts": [
@@ -35,9 +53,11 @@
       "matches": ["<all_urls>"],
       "js": [
         "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
-        "content-scripts/undo-redo.js",
         "content-scripts/toolbar.js",
-        "content-scripts/content.js"
+        "content-scripts/content.js",
+        "content-scripts/tools.js",
+        "content-scripts/customization.js",
+        "content-scripts/messageListener.js"
       ]
     }
   ],
@@ -45,7 +65,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "src/annotator-toolbar/annotator-toolbar.html",
+        "src/*",
         "images/*"
       ],
       "matches":["<all_urls>"]
