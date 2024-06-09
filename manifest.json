@@ -19,29 +19,28 @@
   "commands": {
     "textMarker": {
       "suggested_key": {
-        "default": "Ctrl+Shift+6",
-        "mac": "Command+Shift+6"
+        "default": "Ctrl+K",
+        "mac": "Command+K"
       },
     "description": "highlight"
     },
     "rectangle": {
       "suggested_key": {
-        "default": "Ctrl+Shift+7",
-        "mac": "Command+Shift+7"
+        "default": "Ctrl+I",
+        "mac": "Command+I"
       },
     "description": "make a rectangle"
     },
-    "circle": {
+    "_execute_action": {
       "suggested_key": {
-        "default": "Ctrl+Shift+8",
-        "mac": "Command+Shift+8"
-      },
-    "description": "make an oval"
+        "default": "Ctrl+B",
+        "mac": "Command+B"
+      }
     },
     "underline": {
       "suggested_key": {
-        "default": "Ctrl+Shift+9",
-        "mac": "Command+Shift+9"
+        "default": "Ctrl+U",
+        "mac": "Command+U"
       },
     "description": "make an underline"
     }
