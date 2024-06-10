@@ -7,14 +7,14 @@ body{
     margin: 2em;
 }
 input{
-    background-color: rgb(6, 6, 37);
+    background-color: #060625;
 }
 
 ul{
     padding: 0;
 }
 li{
-    background-color: rgba(250, 249, 249, 0.092);
+    background-color: #faf9f917;
     margin: 0.5em;
     padding: 0.5em;
     list-style: none;
@@ -32,7 +32,7 @@ li:hover{
 
 li:active{
     transition: all 0.1s ease-in-out;
-    transform: scale(1);
+    /* transform: scale(1.05); */
 }
 
 #panels{
@@ -63,19 +63,20 @@ h1{
     transform: scale(1.2);
 }
 
-input{
+textarea{
     background-color: transparent;
     border: 1px solid #ffffff1b;
     width: 100%;
-    height: auto;
     border-radius: 0.5em;
     padding: 5px;
     color: #ccc8fe;
+    resize: none;
+    height: 2em;
 }
 #save{
     border: 1px solid #ffffff3b;
     border-radius: 1em;
-    color: #ccc8fe;
+    color: #020203;
     background-color: transparent;
     cursor:pointer;
     padding: 5px 8px;
@@ -83,11 +84,21 @@ input{
     transition: all 0.1s ease-in-out;
     position: relative;
     right: 2px;
+    filter: invert(100%);
 }
 #save:hover{
     /* transform: scale(1.1); */
     background-color: #ffffff1f;
+    border-color: #006eff;
 }
 #save:active{
     transform: scale(0.9);
+}
+
+.edit{
+    background:  url("../../../../images/edit.png") no-repeat center center/cover;
+    display:none;
+    height:1.4em;
+    width:1.4em;
+    background-size: 85%;
 }

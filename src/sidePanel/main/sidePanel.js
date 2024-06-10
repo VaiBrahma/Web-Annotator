@@ -141,10 +141,48 @@ panels.appendChild(opacityPanel);
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type == "addNote") {
         const note = document.createElement('li');
-        const text = document.createElement('input');
-        text.type = "text";
+        const text = document.createElement('textarea');
         note.appendChild(text);
         notesList.appendChild(note);
+
+        text.addEventListener('change' , ()=>{if(text.value.trim()==='') notesList.removeChild(note)});
+        
+        const button = document.createElement('button');
+        note.appendChild(button);
+        note.style.position = "relative";
+        button.style.position = "absolute";
+        button.style.bottom = "1em";
+        button.style.right = "0.8em";
+        button.style.borderRadius = "0.4em";
+        button.classList.add('edit');
+        button.id = "save";
+
+        text.addEventListener('input', ()=>{
+            text.style.height = (text.scrollHeight) + 'px'
+        });
+
+        let buttonClicked = 0;
+
+        text.addEventListener('focus', ()=>{
+            if(text.value.trim()!==''){
+                if(!buttonClicked) {
+                    text.disabled = true;
+                }
+                else{
+                    text.disabled = false;
+                    buttonClicked = 0;
+                }
+            }
+        })
+
+        button.addEventListener('click', ()=>{
+                buttonClicked = 1;
+                text.disabled = false;
+                text.focus();
+                button.style.display = "none";
+        })
+
+        text.addEventListener('blur', ()=>{if(text.value.trim()!=='') button.style.display = "block"})
 
     }
 })
