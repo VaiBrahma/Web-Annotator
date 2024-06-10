@@ -4,18 +4,18 @@ const notesList = document.querySelector("#notesList");
 
 const notes = [
     {"note": "note1"},
-    {"note": "note2"},
-    {"note": "note3"},
-    {"note": "note4"},
-    {"note": "note5"},
-    {"note": "note5"},
-    {"note": "Shrishvesh kuch is tarah se hum sidePanel me notes save karenge jo tab specific honge, matlab har url ke liye alag alag notes. ye jo notes dikh rahe hain ye maine ek array of object banayi hai manually."},
-    {"note": "note5"},
-    {"note": "note5"},
-    {"note": "note5"},
-    {"note": "note5"},
-    {"note": "note5"},
-    {"note": "note5"},
+    // {"note": "note2"},
+    // {"note": "note3"},
+    // {"note": "note4"},
+    // {"note": "note5"},
+    // {"note": "note5"},
+    // {"note": "Shrishvesh kuch is tarah se hum sidePanel me notes save karenge jo tab specific honge, matlab har url ke liye alag alag notes. ye jo notes dikh rahe hain ye maine ek array of object banayi hai manually."},
+    // {"note": "note5"},
+    // {"note": "note5"},
+    // {"note": "note5"},
+    // {"note": "note5"},
+    // {"note": "note5"},
+    // {"note": "note5"},
 ]
 
 const getTabId = async ()=>{
@@ -137,3 +137,18 @@ panels.appendChild(opacityPanel);
 // }
 
 // console.log(document.querySelector('annotator-toolbar').shadowRoot.querySelectorAll('.box'));
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
+    if(message.type == "addNote") {
+        const note = document.createElement('li');
+        const text = document.createElement('input');
+        text.type = "text";
+        note.appendChild(text);
+        notesList.appendChild(note);
+
+    }
+})
+
+const saveButton = document.querySelector('#save').addEventListener('click', ()=>{
+    chrome.runtime.sendMessage({type:"saveAndShare"});
+});

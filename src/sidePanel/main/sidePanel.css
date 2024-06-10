@@ -62,3 +62,32 @@ h1{
     border: 1px solid #00bfffeb;
     transform: scale(1.2);
 }
+
+input{
+    background-color: transparent;
+    border: 1px solid #ffffff1b;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5em;
+    padding: 5px;
+    color: #ccc8fe;
+}
+#save{
+    border: 1px solid #ffffff3b;
+    border-radius: 1em;
+    color: #ccc8fe;
+    background-color: transparent;
+    cursor:pointer;
+    padding: 5px 8px;
+    margin-top: 5px;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+    right: 2px;
+}
+#save:hover{
+    /* transform: scale(1.1); */
+    background-color: #ffffff1f;
+}
+#save:active{
+    transform: scale(0.9);
+}

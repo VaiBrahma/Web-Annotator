@@ -14,11 +14,16 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type == "UPDATE_PROPERTIES"){
-        console.log(message.type);
+        // console.log(message.type);
         chrome.tabs.query({active:true, currentWindow:true}, (tabs)=>{
             chrome.tabs.sendMessage(tabs[0].id, message);
             // console.log(tabs[0])
         });
+    }
+    else if(message.type == "saveAndShare"){
+      chrome.tabs.query({active:true, currentWindow:true}, (tabs)=>{
+        chrome.tabs.sendMessage(tabs[0].id, message);
+    });
     }
 });
 
