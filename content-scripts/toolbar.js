@@ -95,7 +95,6 @@ class Toolbar extends HTMLElement {
       appendTools(this);
 
       this.shadowRoot.querySelector('.note').addEventListener('click', ()=>{
-        
         var userSelection = window.getSelection();
         let offsetTop = window.scrollY + userSelection.getRangeAt(0).getBoundingClientRect().top;
         console.log(userSelection);

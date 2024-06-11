@@ -8,8 +8,15 @@ chrome.runtime.onInstalled.addListener(() => {
   
 chrome.tabs.onActivated.addListener(async ({ tabId }) => {
     const { path } = await chrome.sidePanel.getOptions({ tabId });
-    chrome.sidePanel.setOptions({ path: mainPage, enabled: false});
-    chrome.sidePanel.setOptions({ path: mainPage, enabled: true});    
+
+    if(path !== welcomePage){
+      chrome.sidePanel.setOptions({ path: mainPage, enabled: false});
+      chrome.sidePanel.setOptions({ path: mainPage, enabled: true});  
+    }  
+    else{
+      chrome.sidePanel.setOptions({ path: welcomePage, enabled: false});
+      chrome.sidePanel.setOptions({ path: welcomePage, enabled: true});
+    }
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
@@ -22,6 +29,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     }
     else if(message.type == "saveAndShare"){
       chrome.tabs.query({active:true, currentWindow:true}, (tabs)=>{
+        chrome.tabs.sendMessage(tabs[0].id, message);
+      });
+    }
+    else if(message.type == "addNote"){
+      chrome.tabs.query({active:true, currentWindow:true}, (tabs)=>{
+        chrome.sidePanel.open({tabId: tabs[0].id});
         chrome.tabs.sendMessage(tabs[0].id, message);
     });
     }

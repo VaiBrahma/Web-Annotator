@@ -36,6 +36,10 @@ const listItems = notes.map( (e, key)=>{
 
 notesList.innerHTML = listItems.join('');
 
+if(notesList.innerHTML === '') {
+    
+}
+
 async function loadTemplate() {
     const response = await fetch(chrome.runtime.getURL('src/customization/popupContainer.html'));
     const template = await response.text();
@@ -138,6 +142,8 @@ panels.appendChild(opacityPanel);
 
 // console.log(document.querySelector('annotator-toolbar').shadowRoot.querySelectorAll('.box'));
 
+
+////////////////////////////addingNotes////////////////////////////////
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type == "addNote") {
         console.log(message);
@@ -152,8 +158,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
             },()=>{console.log('message sent')})
         })
         notesList.appendChild(note);
-
-        text.addEventListener('change' , ()=>{if(text.value.trim()==='') notesList.removeChild(note)});
         
         const button = document.createElement('button');
         note.appendChild(button);
@@ -192,6 +196,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
 
         text.addEventListener('blur', ()=>{
             if(text.value.trim()!=='') button.style.display = "block"
+            else notesList.removeChild(note);
             text.disabled = true;
         })
 
@@ -200,6 +205,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     }
 })
 
+/////////////////////////////saving the Current WebPage////////////////////////////
 const saveButton = document.querySelector('#save').addEventListener('click', ()=>{
     chrome.runtime.sendMessage({type:"saveAndShare"});
 });
