@@ -10,4 +10,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     else if(message.type === "saveAndShare"){
         window.print();
     }
+    else if(message.type === "noteIsHovered"){
+        console.log(message);
+    }
 });

@@ -140,9 +140,17 @@ panels.appendChild(opacityPanel);
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
     if(message.type == "addNote") {
+        console.log(message);
         const note = document.createElement('li');
         const text = document.createElement('textarea');
         note.appendChild(text);
+        note.addEventListener('click', ()=>{
+            chrome.runtime.sendMessage({
+                type: "noteIsHovered", 
+                offsetTop: message.offsetTop,
+                userSelction: message.userSelction
+            },()=>{console.log('message sent')})
+        })
         notesList.appendChild(note);
 
         text.addEventListener('change' , ()=>{if(text.value.trim()==='') notesList.removeChild(note)});
@@ -182,7 +190,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse)=>{
                 button.style.display = "none";
         })
 
-        text.addEventListener('blur', ()=>{if(text.value.trim()!=='') button.style.display = "block"})
+        text.addEventListener('blur', ()=>{
+            if(text.value.trim()!=='') button.style.display = "block"
+            text.disabled = true;
+        })
+
+        
 
     }
 })
