@@ -19,3 +19,5 @@ This is a chrome extension which enable users to annotate web pages and save 'em
 4. Responsive
 5. Save the Current Webpage with Highlighted Content*
 6. Adding Notes
+
+(the extension is still under development)
